@@ -1,0 +1,43 @@
+#include <stdarg.h>
+#include <unistd.h>
+#include <stddef.h>
+/**
+* _printf - Produces output according to a format.
+* @format: The format string containing directives and specifiers.
+*
+* Description: This function prints formatted output to stdout
+* according to the format specified. It handles the following
+* conversion specifiers: %c, %s, %%
+* Return: The number of characters printed (excluding the null byte).
+*/
+
+if (*format == '%') /* Found a % symbol */
+{
+format++;
+if (*format == '\0') /* If % is followed by nothing */
+return (-1);     /* Invalid format: return error */
+switch (*format)
+{
+case 'c': /* Handle %c */
+{
+char ch = va_arg(args, int);
+count += write(1, &ch, 1);
+break;
+}
+case 's': /* Handle %s */
+{
+char *str = va_arg(args, char *);
+if (!str)
+str = "(null)";
+while (*str)
+count += write(1, str++, 1);
+break;
+}
+case '%': /* Handle %% */
+count += write(1, "%", 1);
+break;
+default: /* Invalid specifier */
+return (-1);
+}
+}
+

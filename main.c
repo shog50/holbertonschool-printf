@@ -2,7 +2,7 @@
 
 int main(void)
 {
-    _printf("Hello, World!\n");
-    return (0);
+_printf("Should print a single percent sign: %%\n");
+return (0);
 }
 
